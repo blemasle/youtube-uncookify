@@ -5,6 +5,9 @@
 
     "description": "Seamlessly switch between regular and privacy enhanced (youtube-nocookie.com) YouTube. Also provides a context menu for YouTube watch links.",
 
+    "author": "Bertrand Lemasle",
+    "homepage_url": "https://github.com/blemasle/youtube-uncookify",
+
     "icons": {
         "16" : "icons/icon-16.png",
         "64" : "icons/icon-64.png"
@@ -32,5 +35,13 @@
         "scripts": [ 
             "uncookify.js" 
         ]
+    },
+
+    "commands": {
+        "_execute_page_action" : {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Y"
+            }
+        }
     }
 }
