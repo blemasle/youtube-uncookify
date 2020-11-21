@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
     "name": "YouTube (un)cookify",
-    "version": "0.1",
+    "version": "1.0",
 
-    "description": "Seamlessly switch between regular and privacy enhanced (youtube-nocookie.com) YouTube. Also provides a context menu for YouTube watch links.",
+    "description": "Quickly switch context to watch YouTube video without impacting your watch history!",
 
     "author": "Bertrand Lemasle",
     "homepage_url": "https://github.com/blemasle/youtube-uncookify",
