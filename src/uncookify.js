@@ -24,18 +24,21 @@ if(chrome && chrome.declarativeContent) {
 Switch a YouTube url between watch and youtube-nocookie.
 */
 function switchYouTubeUrl(url) {
-    const reWatch = /.*youtube.com\/watch\?v=.*/;
-    const reNocookie = /.*youtube-nocookie.com\/embed\/(?<id>[^?]*)/;
+    const toYoutube = id => `https://www.youtube-nocookie.com/embed/${id}`;
+    const toYoutubeNoCookie = id => `https://www.youtube.com/watch?v=${id}`;
+    const matchers = [
+        { re :  /.*youtube\.com\/watch\?v=(?<id>[^&#]+)/, transform: toYoutube },
+        { re :  /youtu\.be\/(?<id>[^?#]+)/, transform: toYoutube },
+        { re :  /.*youtube-nocookie\.com\/embed\/(?<id>[^?]*)/, transform: toYoutubeNoCookie },
+    ]
 
-    if (url.match(reWatch)) {
-        let id = new URL(url).searchParams.get('v');
-        return `https://www.youtube-nocookie.com/embed/${id}`;
-    }
+    for(let i = 0; i < matchers.length; i++)
+    {
+        let match = url.match(matchers[i].re);
+        if(!match) continue;
 
-    let noCookieMatch = url.match(reNocookie);
-    if (noCookieMatch) {
-        return `https://www.youtube.com/watch?v=${noCookieMatch[1]}`;
-    }
+        return matchers[i].transform(match.groups.id);
+    }    
 
     return null;
 }
@@ -69,7 +72,7 @@ browser.contextMenus.create({
     id: 'youtube-uncookify',
     contexts: [ 'link' ],
     title: 'Open Link in New YouTube no Cookie Tab',
-    targetUrlPatterns: [ 'https://www.youtube.com/watch?v=*' ]
+    targetUrlPatterns: [ '*://www.youtube.com/watch?v=*', '*://youtu.be/*' ]
 });
 
 
